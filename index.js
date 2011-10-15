@@ -94,6 +94,19 @@ function isObjectDescriptor (o) {
 exports.isObjectDescriptor = isObjectDescriptor
 
 
+/**
+ * Tests for a Property Descriptor.
+ * For example:
+ *
+ *   {
+ *       enumerable: false
+ *     , configurable: true
+ *     , get: function () {
+ *         return Math.random()
+ *       }
+ *   }
+ */
+
 function isPropertyDescriptor (o) {
   if (typeof o !== 'object')
     return false
