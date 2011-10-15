@@ -52,7 +52,6 @@ exports.setup = setup
 function setupFunction (ctor) {
 
   function create () {
-    console.error(arguments)
     var argv = arguments.length
     if (argv < 2) {
       throw new Error('Function.create() requires at least 2 arguments.')
@@ -66,11 +65,17 @@ function setupFunction (ctor) {
       proto = objectDescriptor
       objectDescriptor = null
     }
-
-    // This is the actual instance
-    var instance = null
-    instance = function () {
-
+    var func = arguments[0]
+    if (typeof func === 'function') {
+      instance = function () {
+        return func.apply(instance, arguments)
+      }
+    } else {
+      throw new Error('TODO: invoke the constructor')
+    }
+    instance.__proto__ = proto
+    if (objectDescriptor) {
+      Object.defineProperties(instance, objectDescriptor)
     }
     return instance
   }
