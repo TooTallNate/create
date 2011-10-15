@@ -82,14 +82,13 @@ function setupFunction (ctor) {
 function isObjectDescriptor (o) {
   if (typeof o !== 'object' || o === null)
     return false
-  if (Object.keys(o).length < 1)
-    return false
   for (var i in o) {
     if (!Object.prototype.hasOwnProperty.call(o, i))
       continue
     if (!exports.isPropertyDescriptor(o[i]))
       return false
   }
+  if (!i) return false
   return true
 }
 exports.isObjectDescriptor = isObjectDescriptor
