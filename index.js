@@ -78,6 +78,42 @@ function setupFunction (ctor) {
 }
 
 
+/**
+ * Setup getters for extending the regular natives
+ */
+
+;[Array, Boolean, Date, Function, Number, Object, RegExp, String].forEach(
+function (c) {
+  Object.defineProperty(exports, c.name, {
+      enumerable: true
+    , configurable: true
+    , get: function () {
+        return exports[c.name] = exports.setup(c)
+      }
+    , set: function (v) {
+        Object.defineProperty(exports, c.name, {
+            enumerable: true
+          , configurable: true
+          , writable: true
+          , value: v
+        })
+      }
+  })
+})
+
+
+/**
+ * Tests for an Object Descriptor.
+ * For example:
+ *
+ *   {
+ *     foo: {
+ *         enumerable: false
+ *       , configurable: true
+ *       , value: 'bar'
+ *     }
+ *   }
+ */
 
 function isObjectDescriptor (o) {
   if (typeof o !== 'object' || o === null)
