@@ -80,6 +80,13 @@ function setupFunction (ctor) {
     return instance
   }
   ctor.create = create
+
+  function isFunction (v) {
+    return v instanceof ctor
+      || typeof v === 'function'
+      || Object.prototype.toString.call(v) == '[object Function]'
+  }
+  ctor.isFunction = isFunction
 }
 
 
