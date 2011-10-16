@@ -1,6 +1,7 @@
 require('../')(Function)
 var assert = require('assert')
   , invokeCount = 0
+  , testCalled = false
 
 function impl (a, b) {
   invokeCount++
@@ -11,7 +12,7 @@ function impl (a, b) {
 var Function2Proto = Object.create(Function.prototype, {
   test: {
     value: function () {
-      console.log('test() being called')
+      testCalled = true
     }
   }
 })
@@ -49,3 +50,7 @@ assert.equal(three.foo, 'bar')
 assert.ok('undefined' == typeof three.a)
 assert.ok('undefined' == typeof three.b)
 assert.ok(Function.isFunction(three))
+
+assert.ok(!testCalled)
+three.test()
+assert.ok(testCalled)
