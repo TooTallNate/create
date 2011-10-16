@@ -46,7 +46,7 @@ Array2.remove = function (index) {
 var a = Array.create(Array2)
 
 // add some items to it
-a.push(1, 2, 3, 'foo', bar')
+a.push(1, 2, 3, 'foo', 'bar')
 // [1, 2, 3, 'foo', 'bar']
 
 a.remove(2, 3)
