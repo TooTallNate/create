@@ -9,8 +9,14 @@ JavaScript.
 There's already `Object.create()`. So why not `Array.create()`? Or
 `Function.create()`? Well that's exactly what this module adds functionality for.
 
-In essense, this gives you a clean way to subclass the native classes, and get
-all the same benefits that `Object.create()` gives you.
+In essense, this gives you a clean interface for subclassing the native classes,
+and also gets all the same benefits that `Object.create()` gives you, like setting
+the prototype at creation-time, and being able to pass an object descriptor in to
+define additional properties.
+
+When you require the module, you invoke it as a function and pass in any native
+classes you want extended with a `.create()` function. This can be done with
+*any* of the native types.
 
 
 Installation
@@ -53,3 +59,11 @@ a.push('foo', 'bar')
 a.remove(1)
 // [1, 3, 'foo', 'bar']
 ```
+
+
+Limitations
+-----------
+
+This module depends on the writability of the `__proto__` property on objects.
+From a browser standpoint, this module will only work in browsers where that is
+true (`__proto__` *MAY* be changed). In node this will work.
