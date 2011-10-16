@@ -38,7 +38,7 @@ function setup (ctor) {
       break;
 
     default:
-      throw new Error('unknown constructor: ' + ctor.name)
+      throw new Error('Constructor is unknown or unimplemented: ' + ctor.name)
   }
 
   return ctor
