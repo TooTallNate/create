@@ -25,7 +25,7 @@ function setup (ctor) {
   //console.error('Setting Up: %s', ctor.name)
   if (ctor.create) {
     //console.error('create() already exists; bail')
-    return
+    return ctor
   }
 
   switch (ctor.name) {
