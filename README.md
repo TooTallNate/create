@@ -35,7 +35,7 @@ require('create')(Array)
 var Array2 = Object.create(Array.prototype)
 
 // remove() impl from http://ejohn.org/blog/javascript-array-remove
-Array2.remove = function (index) {
+Array2.remove = function (from, to) {
   var rest = this.slice((to || from) + 1 || this.length);
   this.length = from < 0 ? this.length + from : from;
   return this.push.apply(this, rest);
@@ -46,9 +46,10 @@ Array2.remove = function (index) {
 var a = Array.create(Array2)
 
 // add some items to it
-a.push(1, 2, 3, 'foo', 'bar')
+a.push(1, 2, 3)
+a.push('foo', 'bar')
 // [1, 2, 3, 'foo', 'bar']
 
-a.remove(2, 3)
-// [1, 2, 'bar']
+a.remove(1)
+// [1, 3, 'foo', 'bar']
 ```
