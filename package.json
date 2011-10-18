@@ -1,7 +1,7 @@
 { "name": "create"
 , "description": "The missing Native.create() functions that ECMA forgot."
 , "keywords": [ "create", "ecma", "function", "subclass", "prototype", "array", "number" ]
-, "version": "0.0.0"
+, "version": "0.0.1"
 , "author": "Nathan Rajlich <nathan@tootallnate.net> (http://tootallnate.net)"
 , "repository": { "type": "git", "url": "git://github.com/TooTallNate/create.git" }
 , "main": "./index.js"
