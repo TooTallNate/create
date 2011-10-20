@@ -6,7 +6,7 @@
 , "repository": { "type": "git", "url": "git://github.com/TooTallNate/create.git" }
 , "main": "./index.js"
 , "scripts": {
-    "test": "for i in test/*.js; do node \"$i\"; done;"
+    "test": "./test/run.sh"
   }
 , "engines": { "node": ">= 0.4.0 && < 0.7.0" }
 }
