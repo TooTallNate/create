@@ -66,4 +66,4 @@ Limitations
 
 This module depends on the writability of the `__proto__` property on objects.
 From a browser standpoint, this module will only work in browsers where that is
-true (`__proto__` *MAY* be changed). In node this will work.
+true (`__proto__` *MAY* be changed). In node this will _always_ work.
