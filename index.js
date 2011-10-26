@@ -47,7 +47,7 @@ function setup (ctor) {
         proto = objectDescriptor
         objectDescriptor = null
       }
-      var instance = m.newInstance(argc, arguments)
+      var instance = m.newInstance(ctor, argc, arguments)
       // Set the instance's `prototype`
       instance.__proto__ = proto
       if (objectDescriptor) {

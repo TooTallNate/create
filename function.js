@@ -6,7 +6,7 @@ exports.getIsFunc = function getIsFunc (ctor) {
   }
 }
 
-exports.newInstance = function newInstance (argc, argv) {
+exports.newInstance = function newInstance (ctor, argc, argv) {
   var func = argv[0]
   if (typeof func === 'function') {
     var instance = function () {
