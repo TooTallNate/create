@@ -23,71 +23,50 @@ exports = module.exports = function () {
 
 function setup (ctor) {
   //console.error('Setting Up: %s', ctor.name)
-  if (ctor.create) {
-    //console.error('create() already exists; bail')
-    return ctor
+
+  var m;
+  try {
+    m = require('./' + ctor.name.toLowerCase())
+  } catch (e) {
+    throw new Error('Constructor is unknown or unimplemented: ' + ctor.name + '\n' + e)
   }
 
-  switch (ctor.name) {
-    case 'Function':
-      setupFunction(ctor)
-      break;
+  if (!ctor.create) {
 
-    case 'RegExp':
-      setupRegexp(ctor)
-      break;
-
-    default:
-      throw new Error('Constructor is unknown or unimplemented: ' + ctor.name)
+    function create () {
+      var argc = arguments.length
+      if (argc < 1) {
+        throw new TypeError(ctor.name + ' prototype may only be an Object or null')
+      }
+      var objectDescriptor = arguments[--argc]
+        , instance = null
+        , proto = null
+      if (exports.isObjectDescriptor(objectDescriptor)) {
+        proto = arguments[--argc]
+      } else {
+        proto = objectDescriptor
+        objectDescriptor = null
+      }
+      var instance = m.newInstance(argc, arguments)
+      // Set the instance's `prototype`
+      instance.__proto__ = proto
+      if (objectDescriptor) {
+        // If an object descriptor was passed in, define those
+        Object.defineProperties(instance, objectDescriptor)
+      }
+      return instance
+    }
+    ctor.create = create
   }
 
+  var is = 'is' + ctor.name
+  if (!ctor[is]) {
+    //console.error('Setting up %s.%s()', ctor.name, is)
+    ctor[is] = m.getIsFunc(ctor)
+  }
   return ctor
 }
 exports.setup = setup
-
-/**
- * Extends the Function constructor
- */
-
-function setupFunction (ctor) {
-
-  function create () {
-    var argv = arguments.length
-    if (argv < 2) {
-      throw new Error('Function.create() requires at least 2 arguments.')
-    }
-    var objectDescriptor = arguments[argv - 1]
-      , instance = null
-      , proto = null
-    if (exports.isObjectDescriptor(objectDescriptor)) {
-      proto = arguments[argv - 2]
-    } else {
-      proto = objectDescriptor
-      objectDescriptor = null
-    }
-    var func = arguments[0]
-    if (typeof func === 'function') {
-      instance = function () {
-        return func.apply(instance, arguments)
-      }
-    } else {
-      throw new Error('TODO: invoke the constructor')
-    }
-    instance.__proto__ = proto
-    if (objectDescriptor) {
-      Object.defineProperties(instance, objectDescriptor)
-    }
-    return instance
-  }
-  ctor.create = create
-
-  function isFunction (v) {
-    return v instanceof ctor
-      || typeof v === 'function'
-      || Object.prototype.toString.call(v) == '[object Function]'
-  }
-  ctor.isFunction = isFunction
-}
 
 
 /**
@@ -157,6 +136,7 @@ exports.isObjectDescriptor = isObjectDescriptor
 
 function isPropertyDescriptor (o) {
   if (typeof o !== 'object')
+  //if (typeof o !== 'object' || o === null)
     return false
   return 'value' in o
       || 'writable' in o
