@@ -25,3 +25,6 @@ assert.ok(!create.isObjectDescriptor(false2))
 
 var false3 = null
 assert.ok(!create.isObjectDescriptor(false3))
+
+var false4 = false
+assert.ok(!create.isObjectDescriptor(false4))
