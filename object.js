@@ -1,6 +1,7 @@
 exports.getIsFunc = function getIsFunc (ctor) {
   return function isObject (v) {
-    return Object.prototype.toString.call(v) == '[object Object]'
+    return typeof v == 'object'
+      && Object.prototype.toString.call(v) == '[object Object]'
   }
 }
 
