@@ -13,6 +13,6 @@ exports.newInstance = function newInstance (ctor, argc, argv) {
     }
     return instance
   } else {
-    throw new Error('TODO: invoke the constructor')
+    return ctor.apply(null, Array.prototype.slice.call(argv, 0, argc))
   }
 }
