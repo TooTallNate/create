@@ -41,3 +41,13 @@ assert.equal(two.length, 3)
 // test that the 'remove()' function exists and works
 two.remove(0)
 assert.equal(two.length, 2)
+
+var three = Array.create('foo', 'bar', 1, 3, 5, Array2Proto)
+assert.equal(three.length, 5)
+assert.equal(three[0], 'foo')
+assert.equal(three[1], 'bar')
+assert.equal(three[2], 1)
+assert.equal(three[3], 3)
+assert.equal(three[4], 5)
+three.remove(0, 3)
+assert.equal(three.length, 1)
