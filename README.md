@@ -1,6 +1,8 @@
 create
 =========
 ### The missing Native.create() functions that ECMA forgot.
+[![Build Status](https://secure.travis-ci.org/TooTallNate/create.png)](http://travis-ci.org/TooTallNate/create)
+
 
 `create` is a module for node.js (and someday the browser too) that implements the
 *"missing"* `.create()` functions on the rest of the native data types in
