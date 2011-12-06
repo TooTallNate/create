@@ -8,7 +8,7 @@ create
 *"missing"* `.create()` functions on the rest of the native data types in
 JavaScript.
 
-There's already `Object.create()`. So why not `Array.create()`? Or
+ECMAScript version 5 introduced `Object.create()`. So why not `Array.create()`? Or
 `Function.create()`? Well that's exactly what this module adds functionality for.
 
 In essense, this gives you a clean interface for subclassing the native classes,
